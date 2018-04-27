@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,6 +53,10 @@ public class Page {
         this.pageRank = INITIAL_PAGE_RANK;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
     /**
      * Add a link to another page. It also adds itself as a backlink
      * to the other page.
@@ -60,12 +65,16 @@ public class Page {
      */
     public void addLink(Page page) {
         // Check for duplicate pages and itself.
-        if(this.links.contains(page) || this.equals(page)) {
+        /*if(this.links.contains(page) || this.equals(page)) {
             return;
-        }
+        }*/
 
         page.addBacklink(this);
         this.links.add(page);
+    }
+
+    public int numberOfLinksToPage(Page page) {
+        return Collections.frequency(this.links, page);
     }
 
     /**
@@ -96,6 +105,10 @@ public class Page {
         return this.pageRank;
     }
 
+    public boolean hasLink(Page page) {
+        return this.links.contains(page);
+    }
+
     /**
      * Calculate the current page rank.
      */
@@ -114,5 +127,9 @@ public class Page {
         // Some fancy output
         System.out.printf("PR(%s) = (%.2f) + %.2f * %.2f\n", this.title, 1 - DAMPING_FACTOR, DAMPING_FACTOR, unnormalizedPageRank);
         System.out.printf("PR(%s) = %.2f\n\n", this.title, this.pageRank);
+    }
+
+    public void calculatePageRankUsingRandomSurferModel() {
+
     }
 }
