@@ -35,6 +35,7 @@ public class Main {
         a.addLink(b);
         a.addLink(c);
         a.addLink(c);
+        a.addLink(a);
         b.addLink(c);
         c.addLink(a);
         c.addLink(d);
@@ -79,6 +80,7 @@ public class Main {
             }
         }
         printMatrix("Transition matrix", transitionMatrix);
+        printUsableTransitionMatrix(transitionMatrix);
 
         // Start on random page
         int currentPageIndex = (int) Math.floor(Math.random() * n);
@@ -123,6 +125,26 @@ public class Main {
             }
             System.out.println();
         }
+        System.out.println();
+    }
+
+    private static void printUsableTransitionMatrix(double[][] matrix) {
+        System.out.println("[");
+        for (int row = 0; row < matrix.length; row++) {
+            System.out.print("[");
+            for (int col = 0; col < matrix[row].length; col++) {
+                if (col > 0) {
+                    System.out.print(", ");
+                }
+
+                DecimalFormat formatter = new DecimalFormat("###.####");
+                System.out.print(formatter.format(matrix[row][col]));
+
+            }
+
+            System.out.println("],");
+        }
+        System.out.println("]");
         System.out.println();
     }
 
